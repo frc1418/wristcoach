@@ -5,7 +5,6 @@
   "companyName": "Vae Victis",
   "versionLabel": "0.1",
   "sdkVersion": "3",
-  "targetPlatforms": ["basalt"],
   "watchapp": {
     "watchface": false
   },
