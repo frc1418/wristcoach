@@ -17,6 +17,12 @@ Contrary to what one might expect from the name, that package does not actually 
 pebble sdk install https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-4.3.tar.bz2
 ```
 
+You will also likely need to install `freetype`. You can do this through
+```sh
+brew install freetype
+```
+If that does not work, you will need to manually install from [Freetype's website](https://www.freetype.org/download.html).
+
 TODO: Make sure this works
 
 The finished `.pbw` file can be installed to your Pebble [thus](https://www.youtube.com/watch?v=rTqPyec6EBo).
