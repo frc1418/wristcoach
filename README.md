@@ -3,6 +3,24 @@
 
 Wristcoach helps out by giving a sophisticated and configurable experience which can help FRC Drive Coaches (or even drivers) by giving easy access to a user-friendly countdown and supporting simple reminders.
 
+## Setup
+Given that Pebble's services have mostly shut down, you'll need to follow a somewhat unintuitive (but still simple) process to build and install this app on your watch.
+
+(macOS is assumed for instructions. Guidance for other platforms or when not using Homebrew is available on [this Reddit thread](https://www.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows).)
+
+First, you'll need to install the Pebble command line tools through Homebrew:
+```sh
+brew install pebble/pebble-sdk/pebble-sdk
+```
+Contrary to what one might expect from the name, that package does not actually install the Pebble SDK. However, if you try to run the `pebble` command-line tool, it will try and fail to install from Pebble's now-defunct website. So, you will need to forcibly install from a third-party GitHub repository:
+```sh
+pebble sdk install https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-4.3.tar.bz2
+```
+
+TODO: Make sure this works
+
+The finished `.pbw` file can be installed to your Pebble [thus](https://www.youtube.com/watch?v=rTqPyec6EBo).
+
 ## License
 [MIT](LICENSE)
 ## Author
