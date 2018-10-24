@@ -7,7 +7,7 @@
   "sdkVersion": "3",
   "targetPlatforms": ["basalt"],
   "watchapp": {
-    "watchface": true
+    "watchface": false
   },
   "capabilities": [
     "configurable"
