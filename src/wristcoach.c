@@ -19,13 +19,14 @@ static void main_window_load(Window *window) {
     // Get information about the Window
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
+    GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_44));
 
     // Set up timer box
     s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 60));
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorBlack);
     text_layer_set_text(s_timer, "");
-    text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS));
+    text_layer_set_font(s_timer, custom_font);
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
     // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_timer));

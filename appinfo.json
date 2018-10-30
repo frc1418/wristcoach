@@ -17,6 +17,11 @@
   },
   "resources": {
     "media": [
+        {
+            "type": "font",
+            "name": "FONT_LECO_44",
+            "file": "fonts/LECO_1976-Regular.otf"
+        }
     ]
   }
 }
