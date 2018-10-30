@@ -25,7 +25,7 @@ static void main_window_load(Window *window) {
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorBlack);
     text_layer_set_text(s_timer, "");
-    text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49));
+    text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS));
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
     // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
@@ -54,7 +54,7 @@ static void update_time() {
         // TODO: should we use this and not normal time()?
         //struct tm *tick_time = localtime(&temp);
         char *str = calloc(sizeof(char), 4+1);
-        snprintf(str, 4+1, "%ds", remaining);
+        snprintf(str, 4+1, "%d", remaining);
 
         if (remaining > TELEOP_LENGTH) {
             text_layer_set_text(s_message, "Autonomous");
