@@ -25,6 +25,16 @@ If that does not work, you will need to manually install from [Freetype's websit
 
 In order to push the code to your Pebble, you'll need to connect to it through the Pebble mobile app, then configure the [Pebble Developer Connection](https://developer.rebble.io/developer.pebble.com/guides/tools-and-resources/developer-connection/index.html).
 
+Then, build your app:
+```sh
+pebble build
+```
+
+With your Pebble connected through the Pebble Developer Connection:
+```sh
+pebble install --phone your_phone_ip
+```
+
 If the standard developer connection method of installation doesn't work, the `.pbw` file can be installed to your Pebble [thus](https://www.youtube.com/watch?v=rTqPyec6EBo).
 
 ## License
