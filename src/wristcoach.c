@@ -22,9 +22,9 @@ static void main_window_load(Window *window) {
     GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_55));
 
     // Set up timer box
-    s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 60));
+    s_timer = text_layer_create(GRect(0, 20, bounds.size.w, 70));
     text_layer_set_background_color(s_timer, GColorClear);
-    text_layer_set_text_color(s_timer, GColorBlack);
+    text_layer_set_text_color(s_timer, GColorWhite);
     text_layer_set_text(s_timer, "");
     text_layer_set_font(s_timer, custom_font);
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
@@ -32,8 +32,8 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
     // Set up message box
-    s_message = text_layer_create(GRect(0, 60, bounds.size.w, 60));
-    text_layer_set_background_color(s_message, GColorClear);
+    s_message = text_layer_create(GRect(0, 90, bounds.size.w, 35));
+    text_layer_set_background_color(s_message, GColorWhite);
     text_layer_set_text_color(s_message, GColorBlack);
     text_layer_set_text(s_message, "Start >");
     text_layer_set_font(s_message, fonts_get_system_font(FONT_KEY_GOTHIC_24));
@@ -59,14 +59,13 @@ static void update_time() {
 
         if (remaining > TELEOP_LENGTH) {
             text_layer_set_text(s_message, "Autonomous");
-            text_layer_set_background_color(s_timer, GColorBlue);
-            text_layer_set_text_color(s_timer, GColorWhite);
+            window_set_background_color(s_main_window, GColorBlue);
         } else if (remaining > ENDGAME) {
             text_layer_set_text(s_message, "Teleoperated");
-            text_layer_set_background_color(s_timer, GColorGreen);
+            window_set_background_color(s_main_window, GColorGreen);
         } else {
             text_layer_set_text(s_message, "Endgame");
-            text_layer_set_background_color(s_timer, GColorRed);
+            window_set_background_color(s_main_window, GColorRed);
         }
 
         if (remaining == ENDGAME) {
