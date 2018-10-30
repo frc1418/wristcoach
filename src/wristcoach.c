@@ -15,7 +15,7 @@ static void main_window_load(Window *window) {
   text_layer_set_background_color(s_time_layer, GColorBlack);
   text_layer_set_text_color(s_time_layer, GColorRed);
   text_layer_set_text(s_time_layer, "WristCoach");
-  text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_BOLD_14));
+  text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   // Add it as a child layer to the Window's root layer
