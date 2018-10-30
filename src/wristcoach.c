@@ -11,6 +11,10 @@ static TextLayer *s_message;
 static time_t s_start_time;
 static bool s_running;
 
+// TODO: be more consistent about declaring functions here
+static void start_timer();
+static void stop_timer();
+
 static void main_window_load(Window *window) {
     // Get information about the Window
     Layer *window_layer = window_get_root_layer(window);
@@ -72,6 +76,10 @@ static void update_time() {
         } else {
             text_layer_set_text(s_message, "Endgame");
             text_layer_set_background_color(s_timer, GColorRed);
+        }
+
+        if (remaining == 0) {
+            stop_timer();
         }
 
         // Display this time on the TextLayer
