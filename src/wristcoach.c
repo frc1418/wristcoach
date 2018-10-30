@@ -21,7 +21,7 @@ static void main_window_load(Window *window) {
     GRect bounds = layer_get_bounds(window_layer);
 
     // Set up timer box
-    s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 70));
+    s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 60));
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorBlack);
     text_layer_set_text(s_timer, "[1418]");
@@ -31,7 +31,7 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
     // Set up message box
-    s_message = text_layer_create(GRect(0, 80, bounds.size.w, 60));
+    s_message = text_layer_create(GRect(0, 60, bounds.size.w, 60));
     text_layer_set_background_color(s_message, GColorClear);
     text_layer_set_text_color(s_message, GColorBlack);
     text_layer_set_text(s_message, "Start >");
