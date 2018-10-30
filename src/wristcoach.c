@@ -24,7 +24,7 @@ static void main_window_load(Window *window) {
     s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 60));
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorBlack);
-    text_layer_set_text(s_timer, "[1418]");
+    text_layer_set_text(s_timer, "");
     text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49));
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
     // Insert into window
@@ -82,17 +82,17 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void start_timer() {
-    s_running = true;
-    // Register with TickTimerService
-    tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
     // Start timer (temporary)
     s_start_time = time(NULL);
+    // Register with TickTimerService
+    tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
+    s_running = true;
 }
 static void stop_timer() {
     s_running = false;
     // Unsubscribe from tick event; saves battery
     tick_timer_service_unsubscribe();
-    text_layer_set_text(s_timer, "[End]");
+    text_layer_set_text(s_timer, "||");
 }
 
 static void toggle_timer() {
