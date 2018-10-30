@@ -1,7 +1,7 @@
 #include <pebble.h>
 #include <stdio.h>
-#define AUTONOMOUS_LENGTH 135
-#define     TELEOP_LENGTH 15
+#define AUTONOMOUS_LENGTH 15
+#define     TELEOP_LENGTH 135
 #define           ENDGAME 30
 static Window *s_main_window;
 static TextLayer *s_header;
@@ -16,8 +16,8 @@ static void main_window_load(Window *window) {
 
     // Set up header box
     s_header = text_layer_create(GRect(0, 0, bounds.size.w, 30));
-    text_layer_set_background_color(s_header, GColorBlack);
-    text_layer_set_text_color(s_header, GColorRed);
+    text_layer_set_background_color(s_header, GColorClear);
+    text_layer_set_text_color(s_header, GColorBlack);
     text_layer_set_text(s_header, "WristCoach by 1418");
     text_layer_set_font(s_header, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
     text_layer_set_text_alignment(s_header, GTextAlignmentCenter);
@@ -26,8 +26,8 @@ static void main_window_load(Window *window) {
 
     // Set up timer box
     s_timer = text_layer_create(GRect(0, 30, bounds.size.w, 80));
-    text_layer_set_background_color(s_timer, GColorBlack);
-    text_layer_set_text_color(s_timer, GColorRed);
+    text_layer_set_background_color(s_timer, GColorClear);
+    text_layer_set_text_color(s_timer, GColorBlack);
     text_layer_set_text(s_timer, "");
     text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT));
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
@@ -36,9 +36,9 @@ static void main_window_load(Window *window) {
 
     // Set up message box
     s_message = text_layer_create(GRect(0, 110, bounds.size.w, 60));
-    text_layer_set_background_color(s_message, GColorRed);
+    text_layer_set_background_color(s_message, GColorClear);
     text_layer_set_text_color(s_message, GColorBlack);
-    text_layer_set_text(s_message, "Warning: It's time to climb!");
+    text_layer_set_text(s_message, "Start >");
     text_layer_set_font(s_message, fonts_get_system_font(FONT_KEY_GOTHIC_24));
     text_layer_set_text_alignment(s_message, GTextAlignmentCenter);
     // Insert into window
@@ -59,19 +59,15 @@ static void update_time() {
     char *str = calloc(sizeof(char), 4+1);
     snprintf(str, 4+1, "%ds", remaining);
 
-    switch (remaining) {
-        case (remaining > TELEOP_LENGTH):
-            text_layer_set_text(s_message, "Autonomous");
-            text_layer_set_background_color(s_timer, GColorBlue);
-            break;
-        case (remaining > ENDGAME):
-            text_layer_set_text(s_message, "Teleoperated");
-            text_layer_set_background_color(s_timer, GColorGreen);
-            break;
-        default:
-            text_layer_set_text(s_message, "Endgame");
-            text_layer_set_background_color(s_timer, GColorRed);
-            break;
+    if (remaining > TELEOP_LENGTH) {
+        text_layer_set_text(s_message, "Autonomous");
+        text_layer_set_background_color(s_timer, GColorBlue);
+    } else if (remaining > ENDGAME) {
+        text_layer_set_text(s_message, "Teleoperated");
+        text_layer_set_background_color(s_timer, GColorGreen);
+    } else {
+        text_layer_set_text(s_message, "Endgame");
+        text_layer_set_background_color(s_timer, GColorRed);
     }
 
     // Display this time on the TextLayer
