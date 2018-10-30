@@ -68,6 +68,9 @@ static void update_time() {
             text_layer_set_background_color(s_timer, GColorRed);
         }
 
+        if (remaining == ENDGAME) {
+            vibes_double_pulse();
+        }
         if (remaining == 0) {
             stop_timer();
         }
