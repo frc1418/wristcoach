@@ -6,34 +6,22 @@ Wristcoach helps out by giving a sophisticated and configurable experience which
 The Pebble company announced in 2016 that [it would shut down](https://techcrunch.com/2016/12/07/pebble-confirms-its-shutting-down-devs-and-software-going-to-fitbit/) as a result of accquisition by Fitbit. While the original Pebble web services are no longer active, Pebble watches can still be used fully through third-party open-source platforms and software. The watches can additionally be bought secondhand quite cheaply, selling for as little as $20 [on websites like eBay](https://www.ebay.com/sch/i.html?_nkw=pebble+watch&_sop=15).
 
 ## Setup
-Given that Pebble's services have mostly shut down, you'll need to follow a somewhat unintuitive (but still simple) process to build and install this app on your watch.
+(macOS is assumed for developer setup instructions. Guidance for other platforms or when not using Homebrew is available on [this Reddit thread](https://www.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows).)
 
-(macOS is assumed for instructions. Guidance for other platforms or when not using Homebrew is available on [this Reddit thread](https://www.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows).)
-
-First, you'll need to install the Pebble command line tools through Homebrew:
+1. On your mobile device, install the Pebble app ([Android](https://play.google.com/store/apps/details?id=com.getpebble.android.basalt), [iOS](https://itunes.apple.com/us/app/pebble/id957997620))
+2. Visit [boot.rebble.io](https://boot.rebble.io), and follow those instructions to point your Pebble app to the alternative Rebble server.
+3. Connect to your Pebble through the Pebble mobile app, then configure the [Pebble Developer Connection](https://developer.rebble.io/developer.pebble.com/guides/tools-and-resources/developer-connection/index.html).
+4. On your development machine, install the Pebble command line tools and dependencies through Homebrew:
 ```sh
-brew install pebble/pebble-sdk/pebble-sdk
+brew install pebble/pebble-sdk/pebble-sdk freetype
 ```
-Contrary to what one might expect from the name, that package does not actually install the Pebble SDK. However, if you try to run the `pebble` command-line tool, it will try and fail to install from Pebble's now-defunct website. So, you will need to forcibly install from a third-party GitHub repository:
+5. Download the newest Pebble SDK from a third-party GitHub repository; the standard Pebble command line tool will attempt to install from the now-defunct Pebble server:
 ```sh
 pebble sdk install https://github.com/aveao/PebbleArchive/raw/master/SDKCores/sdk-core-4.3.tar.bz2
 ```
-
-You will also likely need to install `freetype`. You can do this through
-```sh
-brew install freetype
-```
-If that does not work, you will need to manually install from [Freetype's website](https://www.freetype.org/download.html).
-
-In order to push the code to your Pebble, you'll need to connect to it through the Pebble mobile app, then configure the [Pebble Developer Connection](https://developer.rebble.io/developer.pebble.com/guides/tools-and-resources/developer-connection/index.html).
-
-Then, build your app:
+6. Then, build your app and install through the Pebble Developer Connection.:
 ```sh
 pebble build
-```
-
-With your Pebble connected through the Pebble Developer Connection:
-```sh
 pebble install --phone your_phone_ip
 ```
 
