@@ -44,6 +44,14 @@ static void main_window_unload(Window *window) {
     // Destroy TextLayer
     text_layer_destroy(s_header);
 }
+
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+
+}
+
+static void init() {
+    // Register with TickTimerService
+    tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
     // Create main Window element and assign to pointer
     s_main_window = window_create();
 
