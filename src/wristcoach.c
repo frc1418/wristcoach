@@ -10,7 +10,7 @@ static void main_window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
 
   // Set up header box
-  s_header = text_layer_create(GRect(0, 0, bounds.size.w, 0.1 * bounds.size.h));
+  s_header = text_layer_create(GRect(0, 0, bounds.size.w, 30));
   text_layer_set_background_color(s_header, GColorBlack);
   text_layer_set_text_color(s_header, GColorRed);
   text_layer_set_text(s_header, "WristCoach by 1418");
@@ -20,11 +20,12 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_header));
 
   // Set up timer box
-  s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 0.5 * bounds.size.h));
+  s_timer = text_layer_create(GRect(0, 30, bounds.size.w, 100));
   text_layer_set_background_color(s_timer, GColorBlack);
   text_layer_set_text_color(s_timer, GColorRed);
-  text_layer_set_text(s_timer, "30:00");
+  text_layer_set_text(s_timer, "00:29");
   text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT));
+  text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
   // Insert into window
   layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
