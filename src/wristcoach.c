@@ -62,6 +62,7 @@ static void update_time() {
     if (remaining > TELEOP_LENGTH) {
         text_layer_set_text(s_message, "Autonomous");
         text_layer_set_background_color(s_timer, GColorBlue);
+        text_layer_set_text_color(s_timer, GColorWhite);
     } else if (remaining > ENDGAME) {
         text_layer_set_text(s_message, "Teleoperated");
         text_layer_set_background_color(s_timer, GColorGreen);
@@ -78,11 +79,31 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
 }
 
+static void toggle_timer() {
+    if (s_start_time) { // If set, the timer is running. We avoid keeping a time_running boolean this way
+        // Remove start_time variable
+        s_start_time = NULL;
+        // Unsubscribe from tick event; saves battery
+        tick_timer_service_unsubscribe(SECOND_UNIT);
+    } else { // Timer hasn't been started so do so
+        // Register with TickTimerService
+        tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
+        // Start timer (temporary)
+        s_start_time = time(NULL);
+    }
+}
+
+static void select_click_handler() {
+    // TODO: eta if there's nothing else to do
+    toggle_timer();
+}
+
+static void click_config_provider(void *context) {
+    ButtonId id = BUTTON_ID_SELECT;  // The Select button
+    window_single_click_subscribe(id, select_click_handler);
+}
+
 static void init() {
-    // Register with TickTimerService
-    tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
-    // Start timer (temporary)
-    s_start_time = time(NULL);
     // Create main Window element and assign to pointer
     s_main_window = window_create();
 
