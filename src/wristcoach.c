@@ -9,14 +9,14 @@ static void main_window_load(Window *window) {
 
   // Create the TextLayer with specific bounds
   s_time_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 100));
+      GRect(0, 0, bounds.size.w, 20));
 
   // Improve the layout to be more like a watchface
-  text_layer_set_background_color(s_time_layer, GColorClear);
-  text_layer_set_text_color(s_time_layer, GColorBlack);
-  text_layer_set_text(s_time_layer, "Drive coach reminder: don't jump around like a fool");
-  text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
-  //text_layer_set_text_alignment(s_time_layer, GTextAlignmentLeft);
+  text_layer_set_background_color(s_time_layer, GColorBlack);
+  text_layer_set_text_color(s_time_layer, GColorRed);
+  text_layer_set_text(s_time_layer, "WristCoach");
+  text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_BOLD_14));
+  text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   // Add it as a child layer to the Window's root layer
   layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
