@@ -2,6 +2,7 @@
 #include <stdio.h>
 #define AUTONOMOUS_LENGTH 135
 #define     TELEOP_LENGTH 15
+#define           ENDGAME 30
 static Window *s_main_window;
 static TextLayer *s_header;
 static TextLayer *s_timer;
@@ -57,6 +58,17 @@ static void update_time() {
     //struct tm *tick_time = localtime(&temp);
     char *str = calloc(sizeof(char), 4+1);
     snprintf(str, 4+1, "%ds", remaining);
+
+    switch (remaining) {
+        case (remaining > TELEOP_LENGTH):
+            text_layer_set_text(s_message, "Autonomous");
+            break;
+        case (remaining > ENDGAME):
+            text_layer_set_text(s_message, "Teleoperated");
+            break;
+        default:
+            text_layer_set_text(s_message, "Endgame");
+    }
 
     // Display this time on the TextLayer
     text_layer_set_text(s_timer, str);
