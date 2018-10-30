@@ -102,6 +102,8 @@ static void stop_timer() {
     s_running = false;
     // Unsubscribe from tick event; saves battery
     tick_timer_service_unsubscribe();
+
+    text_layer_set_background_color(s_timer, GColorClear);
 }
 
 static void toggle_timer() {
