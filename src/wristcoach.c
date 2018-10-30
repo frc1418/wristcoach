@@ -20,28 +20,18 @@ static void main_window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
 
-    // Set up header box
-    s_header = text_layer_create(GRect(0, 0, bounds.size.w, 30));
-    text_layer_set_background_color(s_header, GColorClear);
-    text_layer_set_text_color(s_header, GColorBlack);
-    text_layer_set_text(s_header, "WristCoach by 1418");
-    text_layer_set_font(s_header, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
-    text_layer_set_text_alignment(s_header, GTextAlignmentCenter);
-    // Insert into window
-    layer_add_child(window_layer, text_layer_get_layer(s_header));
-
     // Set up timer box
-    s_timer = text_layer_create(GRect(0, 30, bounds.size.w, 80));
+    s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 80));
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorBlack);
-    text_layer_set_text(s_timer, "");
+    text_layer_set_text(s_timer, "[1418]");
     text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT));
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
     // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
     // Set up message box
-    s_message = text_layer_create(GRect(0, 110, bounds.size.w, 60));
+    s_message = text_layer_create(GRect(0, 80, bounds.size.w, 60));
     text_layer_set_background_color(s_message, GColorClear);
     text_layer_set_text_color(s_message, GColorBlack);
     text_layer_set_text(s_message, "Start >");
@@ -102,8 +92,6 @@ static void stop_timer() {
     s_running = false;
     // Unsubscribe from tick event; saves battery
     tick_timer_service_unsubscribe();
-
-    text_layer_set_background_color(s_timer, GColorClear);
 }
 
 static void toggle_timer() {
