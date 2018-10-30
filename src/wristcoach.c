@@ -54,8 +54,8 @@ static void update_time() {
         int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
         // TODO: should we use this and not normal time()?
         //struct tm *tick_time = localtime(&temp);
-        char *str = calloc(sizeof(char), 4+1);
-        snprintf(str, 4+1, "%d", remaining);
+        char *str = calloc(sizeof(char), 3);
+        snprintf(str, 3, "%d", remaining);
 
         if (remaining > TELEOP_LENGTH) {
             text_layer_set_text(s_message, "Autonomous");
