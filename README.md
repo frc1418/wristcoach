@@ -3,7 +3,7 @@
 
 Wristcoach helps out by giving a sophisticated and configurable experience which can help FRC Drive Coaches (or other drivers or team members) by giving easy access to a user-friendly countdown and supporting simple reminders.
 
-The Pebble company announced in 2016 that [it would shut down](https://techcrunch.com/2016/12/07/pebble-confirms-its-shutting-down-devs-and-software-going-to-fitbit/) as a result of accquisition by Fitbit. While the original Pebble web services are no longer active, Pebble watches can still be used fully through third-party open-source platforms and software, and can be bought secondhand quite cheaply, selling for as little as $20 [on websites like eBay](https://www.ebay.com/sch/i.html?_nkw=pebble+watch&_sop=15).
+The Pebble company announced in 2016 that [it would shut down](https://techcrunch.com/2016/12/07/pebble-confirms-its-shutting-down-devs-and-software-going-to-fitbit/) as a result of accquisition by Fitbit. While the original Pebble web services are no longer active, Pebble watches can still be used fully through third-party open-source platforms and software, and can be bought secondhand quite cheaply, selling for as little as $20 [on websites like eBay](https://www.ebay.com/sch/i.html?_nkw=pebble+watch&_sop=15). This combined with their easy programability makes them an ideal assistant for FRC drive coaches.
 
 ## Setup
 (macOS is assumed for developer setup instructions. Guidance for other platforms or when not using Homebrew is available on [this Reddit thread](https://www.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows).)
