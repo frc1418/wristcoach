@@ -19,7 +19,7 @@ static void main_window_load(Window *window) {
     // Get information about the Window
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
-    GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_44));
+    GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_55));
 
     // Set up timer box
     s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 60));
