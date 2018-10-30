@@ -83,23 +83,24 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
 }
 
+static void start_timer() {
+    s_running = true;
+    // Register with TickTimerService
+    tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
+    // Start timer (temporary)
+    s_start_time = time(NULL);
+}
+static void stop_timer() {
+    s_running = false;
+    // Unsubscribe from tick event; saves battery
+    tick_timer_service_unsubscribe();
+}
+
 static void toggle_timer() {
-    if (s_running) { // If set, the timer is running. We avoid keeping a time_running boolean this way
-        s_running = false;
-        // Unsubscribe from tick event; saves battery
-        tick_timer_service_unsubscribe();
-    } else { // Timer hasn't been started so do so
-        s_running = true;
-        // Register with TickTimerService
-        tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
-        // Start timer (temporary)
-        s_start_time = time(NULL);
-    }
+    if (s_running) stop_timer(); else start_timer();
 }
 
 static void select_click_handler() {
-    text_layer_set_text_color(s_header, GColorBlue);
-    // TODO: eta if there's nothing else to do?
     toggle_timer();
 }
 
