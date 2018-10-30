@@ -62,12 +62,16 @@ static void update_time() {
     switch (remaining) {
         case (remaining > TELEOP_LENGTH):
             text_layer_set_text(s_message, "Autonomous");
+            text_layer_set_background_color(s_timer, GColorBlue);
             break;
         case (remaining > ENDGAME):
             text_layer_set_text(s_message, "Teleoperated");
+            text_layer_set_background_color(s_timer, GColorGreen);
             break;
         default:
             text_layer_set_text(s_message, "Endgame");
+            text_layer_set_background_color(s_timer, GColorRed);
+            break;
     }
 
     // Display this time on the TextLayer
