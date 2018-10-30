@@ -23,9 +23,9 @@ brew install freetype
 ```
 If that does not work, you will need to manually install from [Freetype's website](https://www.freetype.org/download.html).
 
-TODO: Make sure this works
+In order to push the code to your Pebble, you'll need to connect to it through the Pebble mobile app, then configure the [Pebble Developer Connection](https://developer.rebble.io/developer.pebble.com/guides/tools-and-resources/developer-connection/index.html).
 
-The finished `.pbw` file can be installed to your Pebble [thus](https://www.youtube.com/watch?v=rTqPyec6EBo).
+If the standard developer connection method of installation doesn't work, the `.pbw` file can be installed to your Pebble [thus](https://www.youtube.com/watch?v=rTqPyec6EBo).
 
 ## License
 [MIT](LICENSE)
