@@ -20,7 +20,7 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_header));
 
   // Set up timer box
-  s_timer = text_layer_create(GRect(0, 30, bounds.size.w, 100));
+  s_timer = text_layer_create(GRect(0, 30, bounds.size.w, 80));
   text_layer_set_background_color(s_timer, GColorBlack);
   text_layer_set_text_color(s_timer, GColorRed);
   text_layer_set_text(s_timer, "00:29");
@@ -30,7 +30,14 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
   // Set up message box
-  s_message = text_layer_create(GRect(0, 0, bounds.size.w, 20));
+  s_message = text_layer_create(GRect(0, 110, bounds.size.w, 60));
+  text_layer_set_background_color(s_message, GColorRed);
+  text_layer_set_text_color(s_message, GColorBlack);
+  text_layer_set_text(s_message, "Warning: It's time to climb!");
+  text_layer_set_font(s_message, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+  text_layer_set_text_alignment(s_message, GTextAlignmentCenter);
+  // Insert into window
+  layer_add_child(window_layer, text_layer_get_layer(s_message));
 }
 
 static void main_window_unload(Window *window) {
