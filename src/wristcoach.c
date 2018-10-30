@@ -1,8 +1,12 @@
 #include <pebble.h>
+#include <stdio.h>
+#define AUTONOMOUS_LENGTH 135
+#define     TELEOP_LENGTH 15
 static Window *s_main_window;
 static TextLayer *s_header;
 static TextLayer *s_timer;
 static TextLayer *s_message;
+static time_t s_start_time;
 
 static void main_window_load(Window *window) {
     // Get information about the Window
@@ -47,16 +51,15 @@ static void main_window_unload(Window *window) {
 
 static void update_time() {
     // Get a tm structure
-    time_t temp = time(NULL);
-    struct tm *tick_time = localtime(&temp);
-
-    // Write the current hours and minutes into a buffer
-    static char s_buffer[8];
-    strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ?
-                                          "%H:%M" : "%I:%M", tick_time);
+    time_t curr_time = time(NULL);
+    int elapsed = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
+    // TODO: should we use this and not normal time()?
+    //struct tm *tick_time = localtime(&temp);
+    char *scount = calloc(sizeof(char), 4+1);
+    snprintf(scount, 4+1, "%ds", elapsed);
 
     // Display this time on the TextLayer
-    text_layer_set_text(s_timer, s_buffer);
+    text_layer_set_text(s_timer, scount);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -65,7 +68,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 static void init() {
     // Register with TickTimerService
-    tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+    tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
+    // Start timer (temporary)
+    s_start_time = time(NULL);
     // Create main Window element and assign to pointer
     s_main_window = window_create();
 
@@ -77,6 +82,7 @@ static void init() {
 
     // Show the Window on the watch, with animated=true
     window_stack_push(s_main_window, true);
+
 }
 
 static void deinit() {
