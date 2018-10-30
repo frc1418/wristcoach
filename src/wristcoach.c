@@ -27,7 +27,7 @@ static void main_window_load(Window *window) {
     s_timer = text_layer_create(GRect(0, 30, bounds.size.w, 80));
     text_layer_set_background_color(s_timer, GColorBlack);
     text_layer_set_text_color(s_timer, GColorRed);
-    text_layer_set_text(s_timer, "00:29");
+    text_layer_set_text(s_timer, "");
     text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT));
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
     // Insert into window
@@ -52,14 +52,14 @@ static void main_window_unload(Window *window) {
 static void update_time() {
     // Get a tm structure
     time_t curr_time = time(NULL);
-    int elapsed = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
+    int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
     // TODO: should we use this and not normal time()?
     //struct tm *tick_time = localtime(&temp);
-    char *scount = calloc(sizeof(char), 4+1);
-    snprintf(scount, 4+1, "%ds", elapsed);
+    char *str = calloc(sizeof(char), 4+1);
+    snprintf(str, 4+1, "%ds", remaining);
 
     // Display this time on the TextLayer
-    text_layer_set_text(s_timer, scount);
+    text_layer_set_text(s_timer, str);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
