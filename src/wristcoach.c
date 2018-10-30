@@ -1,5 +1,6 @@
 #include <pebble.h>
 #include <stdio.h>
+#include <stdbool.h>
 #define AUTONOMOUS_LENGTH 15
 #define     TELEOP_LENGTH 135
 #define           ENDGAME 30
@@ -8,6 +9,7 @@ static TextLayer *s_header;
 static TextLayer *s_timer;
 static TextLayer *s_message;
 static time_t s_start_time;
+static bool s_running;
 
 static void main_window_load(Window *window) {
     // Get information about the Window
@@ -51,28 +53,30 @@ static void main_window_unload(Window *window) {
 }
 
 static void update_time() {
-    // Get a tm structure
-    time_t curr_time = time(NULL);
-    int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
-    // TODO: should we use this and not normal time()?
-    //struct tm *tick_time = localtime(&temp);
-    char *str = calloc(sizeof(char), 4+1);
-    snprintf(str, 4+1, "%ds", remaining);
+    if (s_start_time) {
+        // Get a tm structure
+        time_t curr_time = time(NULL);
+        int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
+        // TODO: should we use this and not normal time()?
+        //struct tm *tick_time = localtime(&temp);
+        char *str = calloc(sizeof(char), 4+1);
+        snprintf(str, 4+1, "%ds", remaining);
 
-    if (remaining > TELEOP_LENGTH) {
-        text_layer_set_text(s_message, "Autonomous");
-        text_layer_set_background_color(s_timer, GColorBlue);
-        text_layer_set_text_color(s_timer, GColorWhite);
-    } else if (remaining > ENDGAME) {
-        text_layer_set_text(s_message, "Teleoperated");
-        text_layer_set_background_color(s_timer, GColorGreen);
-    } else {
-        text_layer_set_text(s_message, "Endgame");
-        text_layer_set_background_color(s_timer, GColorRed);
+        if (remaining > TELEOP_LENGTH) {
+            text_layer_set_text(s_message, "Autonomous");
+            text_layer_set_background_color(s_timer, GColorBlue);
+            text_layer_set_text_color(s_timer, GColorWhite);
+        } else if (remaining > ENDGAME) {
+            text_layer_set_text(s_message, "Teleoperated");
+            text_layer_set_background_color(s_timer, GColorGreen);
+        } else {
+            text_layer_set_text(s_message, "Endgame");
+            text_layer_set_background_color(s_timer, GColorRed);
+        }
+
+        // Display this time on the TextLayer
+        text_layer_set_text(s_timer, str);
     }
-
-    // Display this time on the TextLayer
-    text_layer_set_text(s_timer, str);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -80,12 +84,12 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void toggle_timer() {
-    if (s_start_time) { // If set, the timer is running. We avoid keeping a time_running boolean this way
-        // Remove start_time variable
-        s_start_time = NULL;
+    if (s_running) { // If set, the timer is running. We avoid keeping a time_running boolean this way
+        s_running = false;
         // Unsubscribe from tick event; saves battery
-        tick_timer_service_unsubscribe(SECOND_UNIT);
+        tick_timer_service_unsubscribe();
     } else { // Timer hasn't been started so do so
+        s_running = true;
         // Register with TickTimerService
         tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
         // Start timer (temporary)
@@ -94,12 +98,13 @@ static void toggle_timer() {
 }
 
 static void select_click_handler() {
-    // TODO: eta if there's nothing else to do
+    text_layer_set_text_color(s_header, GColorBlue);
+    // TODO: eta if there's nothing else to do?
     toggle_timer();
 }
 
 static void click_config_provider(void *context) {
-    ButtonId id = BUTTON_ID_SELECT;  // The Select button
+    ButtonId id = BUTTON_ID_SELECT;
     window_single_click_subscribe(id, select_click_handler);
 }
 
@@ -113,9 +118,11 @@ static void init() {
         .unload = main_window_unload
     });
 
+    // Set up button click handler
+    window_set_click_config_provider(s_main_window, click_config_provider);
+
     // Show the Window on the watch, with animated=true
     window_stack_push(s_main_window, true);
-
 }
 
 static void deinit() {
