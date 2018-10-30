@@ -21,11 +21,11 @@ static void main_window_load(Window *window) {
     GRect bounds = layer_get_bounds(window_layer);
 
     // Set up timer box
-    s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 80));
+    s_timer = text_layer_create(GRect(0, 0, bounds.size.w, 70));
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorBlack);
     text_layer_set_text(s_timer, "[1418]");
-    text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT));
+    text_layer_set_font(s_timer, fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49));
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
     // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
@@ -92,6 +92,7 @@ static void stop_timer() {
     s_running = false;
     // Unsubscribe from tick event; saves battery
     tick_timer_service_unsubscribe();
+    text_layer_set_text(s_timer, "[End]");
 }
 
 static void toggle_timer() {
