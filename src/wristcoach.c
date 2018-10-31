@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #define AUTONOMOUS_LENGTH 15
 #define     TELEOP_LENGTH 135
+#define      NEAR_ENDGAME 40
 #define           ENDGAME 30
 static Window *s_main_window;
 static TextLayer *s_header;
@@ -71,7 +72,7 @@ static void update_time() {
             text_layer_set_text_color(s_message, GColorRed);
         }
 
-        if (remaining == NEAR_ENDGAME) vibes_single_pulse();
+        if (remaining == NEAR_ENDGAME) vibes_short_pulse();
         if (remaining == ENDGAME) vibes_double_pulse();
         if (remaining == 0) stop_timer();
 
