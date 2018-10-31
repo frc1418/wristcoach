@@ -6,6 +6,7 @@
 #define      NEAR_ENDGAME 40
 #define           ENDGAME 30
 static Window *s_main_window;
+static TextLayer *s_instructions;
 static TextLayer *s_timer;
 static TextLayer *s_mode;
 static time_t s_start_time;
@@ -21,6 +22,16 @@ static void main_window_load(Window *window) {
     GRect bounds = layer_get_bounds(window_layer);
     GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_55));
 
+    // Set up start instructions
+    s_instructions = text_layer_create(GRect(0, 40, bounds.size.w, 70));
+    text_layer_set_background_color(s_instructions, GColorBlack);
+    text_layer_set_text_color(s_instructions, GColorWhite);
+    text_layer_set_text(s_instructions, "Start");
+    text_layer_set_font(s_instructions, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+    text_layer_set_text_alignment(s_instructions, GTextAlignmentRight);
+    // Insert into window
+    layer_add_child(window_layer, text_layer_get_layer(s_instructions));
+
     // Set up timer box
     s_timer = text_layer_create(GRect(0, 20, bounds.size.w, 70));
     text_layer_set_background_color(s_timer, GColorClear);
@@ -35,7 +46,7 @@ static void main_window_load(Window *window) {
     s_mode = text_layer_create(GRect(0, 90, bounds.size.w, 40));
     text_layer_set_background_color(s_mode, GColorWhite);
     text_layer_set_text_color(s_mode, GColorBlack);
-    text_layer_set_text(s_mode, "Start >");
+    text_layer_set_text(s_mode, "");
     text_layer_set_font(s_mode, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
     text_layer_set_text_alignment(s_mode, GTextAlignmentCenter);
     // Insert into window
@@ -90,6 +101,7 @@ static void start_timer() {
     // Register with TickTimerService
     tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
     s_running = true;
+    text_layer_destroy(s_instructions);
 }
 static void stop_timer() {
     s_running = false;
