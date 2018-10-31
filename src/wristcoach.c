@@ -22,16 +22,6 @@ static void main_window_load(Window *window) {
     GRect bounds = layer_get_bounds(window_layer);
     GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_55));
 
-    // Set up start instructions
-    s_instructions = text_layer_create(GRect(0, 40, bounds.size.w, 70));
-    text_layer_set_background_color(s_instructions, GColorBlack);
-    text_layer_set_text_color(s_instructions, GColorWhite);
-    text_layer_set_text(s_instructions, "Start");
-    text_layer_set_font(s_instructions, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
-    text_layer_set_text_alignment(s_instructions, GTextAlignmentRight);
-    // Insert into window
-    layer_add_child(window_layer, text_layer_get_layer(s_instructions));
-
     // Set up timer box
     s_timer = text_layer_create(GRect(0, 20, bounds.size.w, 70));
     text_layer_set_background_color(s_timer, GColorClear);
@@ -51,6 +41,16 @@ static void main_window_load(Window *window) {
     text_layer_set_text_alignment(s_mode, GTextAlignmentCenter);
     // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_mode));
+
+    // Set up start instructions
+    s_instructions = text_layer_create(GRect(75, 65, bounds.size.w - 75, 40));
+    text_layer_set_background_color(s_instructions, GColorBlack);
+    text_layer_set_text_color(s_instructions, GColorWhite);
+    text_layer_set_text(s_instructions, "START");
+    text_layer_set_font(s_instructions, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+    text_layer_set_text_alignment(s_instructions, GTextAlignmentCenter);
+    // Insert into window
+    layer_add_child(window_layer, text_layer_get_layer(s_instructions));
 }
 
 static void main_window_unload(Window *window) {
