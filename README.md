@@ -1,11 +1,14 @@
 # Wristcoach
-> A Pebble app to aid Drive Coaches in FIRST Robotics Competition matches.
+> A Pebble app to aid drive coaches in FIRST Robotics Competition matches.
 
 ![Screenshot](screenshot.png)
 
 Wristcoach helps out by giving a sophisticated and configurable experience which can help FRC Drive Coaches (or other drivers or team members) by giving easy access to a user-friendly countdown and supporting simple reminders.
 
 The Pebble company announced in 2016 that [it would shut down](https://techcrunch.com/2016/12/07/pebble-confirms-its-shutting-down-devs-and-software-going-to-fitbit/) as a result of accquisition by Fitbit. While the original Pebble web services are no longer active, Pebble watches can still be used fully through third-party open-source platforms and software, and can be bought secondhand quite cheaply, selling for as little as $20 [on websites like eBay](https://www.ebay.com/sch/i.html?_nkw=pebble+watch&_sop=15). This combined with their easy programability makes them an ideal assistant for FRC drive coaches.
+
+## Motivations
+As drive coach for [FRC Team 1418](https://github.com/frc1418), I've never had an easy time keeping track of time. Depending on your position, it can be difficult to see the countdown on the other side of the field, and looking to the livestream screen is prohibitively time-consuming. Furthermore, it's difficult to pay enough attention to any clock to remember exactly when drivers must prepare for endgame or other actions. Thus, a simple smartwatch app fits the ideal goal of taking menial mental tasks off my hands as drive coach. With robotic timing tasks taken off my hands and moved to my wrist, I can better focus on the field and noticing important events there.
 
 ## FAQ
 ### Is this illegal?
