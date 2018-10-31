@@ -32,7 +32,7 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
     // Set up message box
-    s_message = text_layer_create(GRect(0, 90, bounds.size.w, 35));
+    s_message = text_layer_create(GRect(0, 90, bounds.size.w, 40));
     text_layer_set_background_color(s_message, GColorWhite);
     text_layer_set_text_color(s_message, GColorBlack);
     text_layer_set_text(s_message, "Start >");
@@ -54,26 +54,26 @@ static void update_time() {
         int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
         // TODO: should we use this and not normal time()?
         //struct tm *tick_time = localtime(&temp);
-        char *str = calloc(sizeof(char), 3);
-        snprintf(str, 3, "%d", remaining);
+        char *str = calloc(sizeof(char), 3+1);
+        snprintf(str, 3+1, "%d", remaining);
 
         if (remaining > TELEOP_LENGTH) {
-            text_layer_set_text(s_message, "Autonomous");
+            text_layer_set_text(s_message, "AUTON");
             window_set_background_color(s_main_window, GColorBlue);
+            text_layer_set_text_color(s_message, GColorBlue);
         } else if (remaining > ENDGAME) {
-            text_layer_set_text(s_message, "Teleoperated");
+            text_layer_set_text(s_message, "TELEOP");
             window_set_background_color(s_main_window, GColorGreen);
+            text_layer_set_text_color(s_message, GColorGreen);
         } else {
-            text_layer_set_text(s_message, "Endgame");
+            text_layer_set_text(s_message, "ENDGAME");
             window_set_background_color(s_main_window, GColorRed);
+            text_layer_set_text_color(s_message, GColorRed);
         }
 
-        if (remaining == ENDGAME) {
-            vibes_double_pulse();
-        }
-        if (remaining == 0) {
-            stop_timer();
-        }
+        if (remaining == NEAR_ENDGAME) vibes_single_pulse();
+        if (remaining == ENDGAME) vibes_double_pulse();
+        if (remaining == 0) stop_timer();
 
         // Display this time on the TextLayer
         text_layer_set_text(s_timer, str);
