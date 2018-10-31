@@ -8,7 +8,7 @@
 static Window *s_main_window;
 static TextLayer *s_header;
 static TextLayer *s_timer;
-static TextLayer *s_message;
+static TextLayer *s_mode;
 static time_t s_start_time;
 static bool s_running;
 
@@ -33,14 +33,14 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
     // Set up message box
-    s_message = text_layer_create(GRect(0, 90, bounds.size.w, 40));
-    text_layer_set_background_color(s_message, GColorWhite);
-    text_layer_set_text_color(s_message, GColorBlack);
-    text_layer_set_text(s_message, "Start >");
-    text_layer_set_font(s_message, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
-    text_layer_set_text_alignment(s_message, GTextAlignmentCenter);
+    s_mode = text_layer_create(GRect(0, 90, bounds.size.w, 40));
+    text_layer_set_background_color(s_mode, GColorWhite);
+    text_layer_set_text_color(s_mode, GColorBlack);
+    text_layer_set_text(s_mode, "Start >");
+    text_layer_set_font(s_mode, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+    text_layer_set_text_alignment(s_mode, GTextAlignmentCenter);
     // Insert into window
-    layer_add_child(window_layer, text_layer_get_layer(s_message));
+    layer_add_child(window_layer, text_layer_get_layer(s_mode));
 }
 
 static void main_window_unload(Window *window) {
@@ -59,17 +59,17 @@ static void update_time() {
         snprintf(str, 3+1, "%d", remaining);
 
         if (remaining > TELEOP_LENGTH) {
-            text_layer_set_text(s_message, "AUTON");
+            text_layer_set_text(s_mode, "AUTON");
             window_set_background_color(s_main_window, GColorBlue);
-            text_layer_set_text_color(s_message, GColorBlue);
+            text_layer_set_text_color(s_mode, GColorBlue);
         } else if (remaining > ENDGAME) {
-            text_layer_set_text(s_message, "TELEOP");
+            text_layer_set_text(s_mode, "TELEOP");
             window_set_background_color(s_main_window, GColorGreen);
-            text_layer_set_text_color(s_message, GColorGreen);
+            text_layer_set_text_color(s_mode, GColorGreen);
         } else {
-            text_layer_set_text(s_message, "ENDGAME");
+            text_layer_set_text(s_mode, "ENDGAME");
             window_set_background_color(s_main_window, GColorRed);
-            text_layer_set_text_color(s_message, GColorRed);
+            text_layer_set_text_color(s_mode, GColorRed);
         }
 
         if (remaining == NEAR_ENDGAME) vibes_short_pulse();
