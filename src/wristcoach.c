@@ -36,7 +36,7 @@ static void main_window_load(Window *window) {
     text_layer_set_background_color(s_message, GColorWhite);
     text_layer_set_text_color(s_message, GColorBlack);
     text_layer_set_text(s_message, "Start >");
-    text_layer_set_font(s_message, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+    text_layer_set_font(s_message, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
     text_layer_set_text_alignment(s_message, GTextAlignmentCenter);
     // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_message));
