@@ -6,7 +6,6 @@
 #define      NEAR_ENDGAME 40
 #define           ENDGAME 30
 static Window *s_main_window;
-static TextLayer *s_header;
 static TextLayer *s_timer;
 static TextLayer *s_mode;
 static time_t s_start_time;
@@ -44,8 +43,8 @@ static void main_window_load(Window *window) {
 }
 
 static void main_window_unload(Window *window) {
-    // Destroy TextLayer
-    text_layer_destroy(s_header);
+    text_layer_destroy(s_timer);
+    text_layer_destroy(s_mode);
 }
 
 static void update_time() {
