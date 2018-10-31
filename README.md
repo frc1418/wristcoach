@@ -10,6 +10,11 @@ The Pebble company announced in 2016 that [it would shut down](https://techcrunc
 ## Motivations
 As drive coach for [FRC Team 1418](https://github.com/frc1418), I've never had an easy time keeping track of time. Depending on your position, it can be difficult to see the countdown on the other side of the field, and looking to the livestream screen is prohibitively time-consuming. Furthermore, it's difficult to pay enough attention to any clock to remember exactly when drivers must prepare for endgame or other actions. Thus, a simple smartwatch app fits the ideal goal of taking menial mental tasks off my hands as drive coach. With robotic timing tasks taken off my hands and moved to my wrist, I can better focus on the field and noticing important events there.
 
+Wristcoach helps drive coaches with the following features:
+* An easily-readable countdown, and mode color-coding to help with easy reading
+* Automatic vibration at configurable times to remind you it's time for endgame
+* Easy tweaking to add other reminders and information
+
 ## FAQ
 ### Is this illegal?
 As this app neither sends nor recieves data outside the driver station nor obstructs driver vision, it is legal to use in FRC competitions.
