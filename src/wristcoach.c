@@ -102,16 +102,18 @@ static void start_timer() {
     tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
     s_running = true;
     text_layer_destroy(s_instructions);
+    update_time();
 }
 static void stop_timer() {
     s_running = false;
     // Unsubscribe from tick event; saves battery
     tick_timer_service_unsubscribe();
-    text_layer_set_text(s_timer, "||");
+    text_layer_set_text(s_timer, "STOP");
 }
 
 static void toggle_timer() {
-    if (s_running) stop_timer(); else start_timer();
+    if (s_running) { stop_timer(); }
+    else { start_timer(); }
 }
 
 static void select_click_handler() {
