@@ -1,6 +1,7 @@
 #include <pebble.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <sys/time.h>
 #define AUTONOMOUS_LENGTH 15
 #define     TELEOP_LENGTH 135
 #define      NEAR_ENDGAME 40
@@ -9,7 +10,7 @@ static Window *s_main_window;
 static TextLayer *s_instructions;
 static TextLayer *s_timer;
 static TextLayer *s_mode;
-static time_t s_start_time;
+static struct timeval s_start_time;
 static bool s_running;
 
 // TODO: be more consistent about declaring functions here
@@ -59,17 +60,18 @@ static void main_window_unload(Window *window) {
 }
 
 static void update_time() {
-    if (s_start_time) {
+    if (s_running) {
         // Get a tm structure
-        time_t curr_time = time(NULL);
-        int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
+        struct timeval curr_time;
+        gettimeofday(&curr_time, NULL);
+        int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time.tv_sec - s_start_time.tv_sec);
         // TODO: should we use this and not normal time()?
         //struct tm *tick_time = localtime(&temp);
         char *str = calloc(sizeof(char), 3+1);
         snprintf(str, 3+1, "%d", remaining);
 
         if (remaining > TELEOP_LENGTH) {
-            text_layer_set_text(s_mode, "AUTON");
+            text_layer_set_text(s_mode, "AUTO");
             window_set_background_color(s_main_window, GColorBlue);
             text_layer_set_text_color(s_mode, GColorBlue);
         } else if (remaining > ENDGAME) {
@@ -96,8 +98,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void start_timer() {
-    // Start timer (temporary)
-    s_start_time = time(NULL);
+    // Start timer
+    gettimeofday(&s_start_time, NULL);
     // Register with TickTimerService
     tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
     s_running = true;
