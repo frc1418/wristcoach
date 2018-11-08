@@ -101,7 +101,8 @@ static void start_timer() {
     // Register with TickTimerService
     tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
     s_running = true;
-    text_layer_destroy(s_instructions);
+    if (s_instructions)
+        text_layer_destroy(s_instructions);
     update_time();
 }
 static void stop_timer() {
