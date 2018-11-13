@@ -1,0 +1,7 @@
+[
+  {
+    "messageKey": "warningTime",
+    "type": "slider",
+    "defaultValue": 40
+  }
+]
