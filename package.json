@@ -24,7 +24,7 @@
     "messageKeys": [
       "warningTime"
     ],
-    "enableMultiJS": false,
+    "enableMultiJS": true,
     "displayName": "WristCoach",
     "watchapp": {
       "onlyShownOnCommunication": false,
