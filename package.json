@@ -21,10 +21,9 @@
     },
     "projectType": "native",
     "uuid": "a2ae5e8f-42b0-4f63-a967-b9fe6d1dfeaa",
-    "messageKeys": {
-      "twentyFourHourFormat": 1,
-      "backgroundColor": 0
-    },
+    "messageKeys": [
+      "warningTime"
+    ],
     "enableMultiJS": false,
     "displayName": "WristCoach",
     "watchapp": {
