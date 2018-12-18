@@ -1,5 +1,9 @@
 [
   {
+    "type": "heading",
+    "defaultValue": "Wristcoach settings"
+  },
+  {
     "messageKey": "warningTime",
     "type": "slider",
     "defaultValue": 40
