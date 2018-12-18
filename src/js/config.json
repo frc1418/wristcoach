@@ -4,8 +4,19 @@
     "defaultValue": "Wristcoach settings"
   },
   {
-    "messageKey": "warningTime",
+    "messageKey": "endgameWarningTime",
     "type": "slider",
-    "defaultValue": 40
+    "label": "Final warning time",
+    "defaultValue": 30,
+    "min": 0,
+    "max": 150
+  },
+  {
+    "messageKey": "earlyWarningTime",
+    "type": "slider",
+    "label": "Early warning time",
+    "defaultValue": 40,
+    "min": 0,
+    "max": 150
   }
 ]
