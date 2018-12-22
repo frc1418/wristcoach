@@ -69,7 +69,7 @@ static void update_time() {
         snprintf(str, 3+1, "%d", remaining);
 
         if (remaining > TELEOP_LENGTH) {
-            text_layer_set_text(s_mode, "AUTON");
+            text_layer_set_text(s_mode, "AUTO");
             window_set_background_color(s_main_window, GColorBlue);
             text_layer_set_text_color(s_mode, GColorBlue);
         } else if (remaining > ENDGAME) {
