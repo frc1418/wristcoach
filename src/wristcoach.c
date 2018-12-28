@@ -6,7 +6,7 @@
 #define TELEOPERATED_LENGTH 135
 #define      ENDGAME_LENGTH 30
 
-static Window *s_main_window;
+static Window *s_window;
 static TextLayer *s_instructions;
 static TextLayer *s_timer;
 static TextLayer *s_mode;
@@ -94,15 +94,15 @@ static void update_time() {
 
         if (remaining > TELEOPERATED_LENGTH) {
             text_layer_set_text(s_mode, "AUTO");
-            window_set_background_color(s_main_window, GColorBlue);
+            window_set_background_color(s_window, GColorBlue);
             text_layer_set_text_color(s_mode, GColorBlue);
         } else if (remaining > ENDGAME_LENGTH) {
             text_layer_set_text(s_mode, "TELEOP");
-            window_set_background_color(s_main_window, GColorGreen);
+            window_set_background_color(s_window, GColorGreen);
             text_layer_set_text_color(s_mode, GColorGreen);
         } else {
             text_layer_set_text(s_mode, "ENDGAME");
-            window_set_background_color(s_main_window, GColorRed);
+            window_set_background_color(s_window, GColorRed);
             text_layer_set_text_color(s_mode, GColorRed);
         }
 
@@ -154,19 +154,19 @@ static void prv_init() {
     prv_load_settings();
 
     // Create main Window element and assign to pointer
-    s_main_window = window_create();
+    s_window = window_create();
 
     // Set handlers to manage the elements inside the Window
-    window_set_window_handlers(s_main_window, (WindowHandlers) {
+    window_set_window_handlers(s_window, (WindowHandlers) {
         .load = main_window_load,
         .unload = main_window_unload
     });
 
     // Set up button click handler
-    window_set_click_config_provider(s_main_window, click_config_provider);
+    window_set_click_config_provider(s_window, click_config_provider);
 
     // Show the Window on the watch, with animated=true
-    window_stack_push(s_main_window, true);
+    window_stack_push(s_window, true);
 }
 
 static void prv_deinit() {
