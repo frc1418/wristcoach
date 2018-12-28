@@ -22,8 +22,8 @@
     "projectType": "native",
     "uuid": "a2ae5e8f-42b0-4f63-a967-b9fe6d1dfeaa",
     "messageKeys": [
-      "EndgameWarningTime",
-      "EarlyWarningTime"
+      "EarlyWarningTime",
+      "EndgameWarningTime"
     ],
     "enableMultiJS": true,
     "displayName": "WristCoach",

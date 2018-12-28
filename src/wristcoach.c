@@ -21,6 +21,9 @@ static void start_timer();
 static void stop_timer();
 
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+    Tuple *early_warning_time_t = dict_find(iter, MESSAGE_KEY_EarlyWarningTime);
+    if (early_warning_time_t) s_early_warning_time = early_warning_time_t->value->int32;
+
     Tuple *endgame_warning_time_t = dict_find(iter, MESSAGE_KEY_EndgameWarningTime);
     if (endgame_warning_time_t) s_endgame_warning_time = endgame_warning_time_t->value->int32;
 }
