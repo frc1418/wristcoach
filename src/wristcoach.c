@@ -20,7 +20,8 @@ static void start_timer();
 static void stop_timer();
 
 static void prv_default_settings() {
-    settings.EndgameWarningTime = 40;
+    settings.EarlyWarningTime = 40;
+    settings.EndgameWarningTime = 30;
 }
 
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
@@ -105,8 +106,8 @@ static void update_time() {
             text_layer_set_text_color(s_mode, GColorRed);
         }
 
-        if (remaining == s_early_warning_time) vibes_short_pulse();
-        if (remaining == s_endgame_warning_time) vibes_double_pulse();
+        if (remaining == settings.EarlyWarningTime) vibes_short_pulse();
+        if (remaining == settings.EndgameWarningTime) vibes_double_pulse();
         if (remaining == 0) stop_timer();
 
         // Display this time on the TextLayer
@@ -150,6 +151,8 @@ static void click_config_provider(void *context) {
 }
 
 static void prv_init() {
+    prv_load_settings();
+
     // Create main Window element and assign to pointer
     s_main_window = window_create();
 
