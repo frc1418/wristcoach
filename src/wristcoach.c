@@ -40,7 +40,7 @@ static void prv_save_settings() {
     persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
-static void main_window_load(Window *window) {
+static void window_load(Window *window) {
     // Get information about the Window
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
@@ -77,7 +77,7 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, text_layer_get_layer(s_instructions));
 }
 
-static void main_window_unload(Window *window) {
+static void window_unload(Window *window) {
     text_layer_destroy(s_timer);
     text_layer_destroy(s_mode);
 }
@@ -158,8 +158,8 @@ static void prv_init() {
 
     // Set handlers to manage the elements inside the Window
     window_set_window_handlers(s_window, (WindowHandlers) {
-        .load = main_window_load,
-        .unload = main_window_unload
+        .load = window_load,
+        .unload = window_unload
     });
 
     // Set up button click handler
