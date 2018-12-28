@@ -5,10 +5,8 @@
 
 // A structure containing our settings
 typedef struct ClaySettings {
-  GColor BackgroundColor;
-  GColor ForegroundColor;
-  bool SecondTick;
-  bool Animations;
+    int EarlyWarningTime;
+    int EndgameWarningTime;
 } __attribute__((__packed__)) ClaySettings;
 
 // TODO: define functions here
