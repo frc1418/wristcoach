@@ -1,9 +1,9 @@
 #include <pebble.h>
 #include <stdio.h>
 #include <stdbool.h>
-#define AUTONOMOUS_LENGTH 15
-#define     TELEOP_LENGTH 135
-#define    ENDGAME_LENGTH 30
+#define   AUTONOMOUS_LENGTH 15
+#define TELEOPERATED_LENGTH 135
+#define      ENDGAME_LENGTH 30
 
 // Options
 int s_early_warning_time,
@@ -80,13 +80,13 @@ static void update_time() {
     if (s_start_time) {
         // Get a tm structure
         time_t curr_time = time(NULL);
-        int remaining = (AUTONOMOUS_LENGTH + TELEOP_LENGTH) - (curr_time - s_start_time);
+        int remaining = (AUTONOMOUS_LENGTH + TELEOPERATED_LENGTH) - (curr_time - s_start_time);
         // TODO: should we use this and not normal time()?
         //struct tm *tick_time = localtime(&temp);
         char *str = calloc(sizeof(char), 3+1);
         snprintf(str, 3+1, "%d", remaining);
 
-        if (remaining > TELEOP_LENGTH) {
+        if (remaining > TELEOPERATED_LENGTH) {
             text_layer_set_text(s_mode, "AUTO");
             window_set_background_color(s_main_window, GColorBlue);
             text_layer_set_text_color(s_mode, GColorBlue);
