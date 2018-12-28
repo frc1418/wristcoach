@@ -92,9 +92,6 @@ static void update_time() {
         int remaining = (AUTONOMOUS_LENGTH + TELEOPERATED_LENGTH) - (curr_time - s_start_time);
         // TODO: should we use this and not normal time()?
         //struct tm *tick_time = localtime(&temp);
-        char *str = calloc(sizeof(char), 3+1);
-        snprintf(str, 3+1, "%d", remaining);
-
         if (remaining > TELEOPERATED_LENGTH) {
             text_layer_set_text(s_mode, "AUTO");
             window_set_background_color(s_window, GColorBlue);
@@ -113,7 +110,9 @@ static void update_time() {
         if (remaining == settings.EndgameWarningTime) vibes_double_pulse();
         if (remaining == 0) stop_timer();
 
-        // Display this time on the TextLayer
+        // Display remaining time
+        char *str = calloc(sizeof(char), 3+1);
+        snprintf(str, 3+1, "%d", remaining);
         text_layer_set_text(s_timer, str);
     }
 }
