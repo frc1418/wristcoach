@@ -18,5 +18,9 @@
     "defaultValue": 30,
     "min": 0,
     "max": 150
+  },
+  {
+    "type": "submit",
+    "defaultValue": "Save"
   }
 ]
