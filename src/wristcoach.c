@@ -156,6 +156,9 @@ static void click_config_provider(void *context) {
 static void prv_init() {
     prv_load_settings();
 
+    app_message_register_inbox_received(prv_inbox_received_handler);
+    app_message_open(128, 128);
+
     // Create main Window element and assign to pointer
     s_window = window_create();
 
