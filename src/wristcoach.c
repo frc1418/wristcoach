@@ -7,9 +7,9 @@
 #define      ENDGAME_LENGTH 30
 
 static Window *s_window;
-static TextLayer *s_instructions;
-static TextLayer *s_timer;
-static TextLayer *s_mode;
+static TextLayer *s_instructions,
+                 *s_timer,
+                 *s_mode;
 static time_t s_start_time;
 static bool s_running;
 
@@ -42,42 +42,40 @@ static void window_load(Window *window) {
     // Get information about the Window
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
-    GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_55));
+    GFont timer_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_LECO_55));
 
-    // Set up timer box
+    // Countdown
     s_timer = text_layer_create(GRect(0, 20, bounds.size.w, 70));
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorWhite);
     text_layer_set_text(s_timer, "");
-    text_layer_set_font(s_timer, custom_font);
+    text_layer_set_font(s_timer, timer_font);
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
-    // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
 
-    // Set up message box
+    // Mode readout
     s_mode = text_layer_create(GRect(0, 90, bounds.size.w, 40));
     text_layer_set_background_color(s_mode, GColorWhite);
     text_layer_set_text_color(s_mode, GColorBlack);
     text_layer_set_text(s_mode, "");
     text_layer_set_font(s_mode, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
     text_layer_set_text_alignment(s_mode, GTextAlignmentCenter);
-    // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_mode));
 
-    // Set up start instructions
+    // Start ribbon
     s_instructions = text_layer_create(GRect(75, 65, bounds.size.w - 75, 40));
     text_layer_set_background_color(s_instructions, GColorBlack);
     text_layer_set_text_color(s_instructions, GColorWhite);
     text_layer_set_text(s_instructions, "START");
     text_layer_set_font(s_instructions, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
     text_layer_set_text_alignment(s_instructions, GTextAlignmentCenter);
-    // Insert into window
     layer_add_child(window_layer, text_layer_get_layer(s_instructions));
 }
 
 static void window_unload(Window *window) {
-    text_layer_destroy(s_timer);
-    text_layer_destroy(s_mode);
+    if (s_timer) text_layer_destroy(s_timer);
+    if (s_mode) text_layer_destroy(s_mode);
+    if (s_instructions) text_layer_destroy(s_instructions);
 }
 
 static void update_time() {
