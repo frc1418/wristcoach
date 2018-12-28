@@ -18,6 +18,7 @@ ClaySettings settings;
 // TODO: be more consistent about declaring functions here
 static void start_timer();
 static void stop_timer();
+static void prv_save_settings();
 
 static void prv_default_settings() {
     settings.EarlyWarningTime = 40;
@@ -30,6 +31,8 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
 
     Tuple *endgame_warning_time_t = dict_find(iter, MESSAGE_KEY_EndgameWarningTime);
     if (endgame_warning_time_t) settings.EndgameWarningTime = endgame_warning_time_t->value->int32;
+
+    prv_save_settings();
 }
 
 static void prv_load_settings() {
