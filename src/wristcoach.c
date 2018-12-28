@@ -15,14 +15,17 @@ static bool s_running;
 
 ClaySettings settings;
 
-// TODO: be more consistent about declaring functions here
-static void start_timer();
-static void stop_timer();
-static void prv_save_settings();
-
 static void prv_default_settings() {
     settings.EarlyWarningTime = 40;
     settings.EndgameWarningTime = 30;
+}
+
+static void prv_load_settings() {
+    prv_default_settings();
+    persist_read_data(SETTINGS_KEY, &settings, sizeof(settings));
+}
+static void prv_save_settings() {
+    persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
@@ -33,14 +36,6 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
     if (endgame_warning_time_t) settings.EndgameWarningTime = endgame_warning_time_t->value->int32;
 
     prv_save_settings();
-}
-
-static void prv_load_settings() {
-    prv_default_settings();
-    persist_read_data(SETTINGS_KEY, &settings, sizeof(settings));
-}
-static void prv_save_settings() {
-    persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
 static void window_load(Window *window) {
