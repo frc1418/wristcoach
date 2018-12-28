@@ -48,7 +48,6 @@ static void window_load(Window *window) {
     s_timer = text_layer_create(GRect(0, 20, bounds.size.w, 70));
     text_layer_set_background_color(s_timer, GColorClear);
     text_layer_set_text_color(s_timer, GColorWhite);
-    text_layer_set_text(s_timer, "");
     text_layer_set_font(s_timer, timer_font);
     text_layer_set_text_alignment(s_timer, GTextAlignmentCenter);
     layer_add_child(window_layer, text_layer_get_layer(s_timer));
@@ -56,8 +55,6 @@ static void window_load(Window *window) {
     // Mode readout
     s_mode = text_layer_create(GRect(0, 90, bounds.size.w, 40));
     text_layer_set_background_color(s_mode, GColorWhite);
-    text_layer_set_text_color(s_mode, GColorBlack);
-    text_layer_set_text(s_mode, "");
     text_layer_set_font(s_mode, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
     text_layer_set_text_alignment(s_mode, GTextAlignmentCenter);
     layer_add_child(window_layer, text_layer_get_layer(s_mode));
@@ -128,7 +125,6 @@ static void stop_timer() {
     s_running = false;
     // Unsubscribe from tick event; saves battery
     tick_timer_service_unsubscribe();
-    text_layer_set_text(s_timer, "STOP");
 }
 
 static void toggle_timer() {
