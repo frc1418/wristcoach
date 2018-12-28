@@ -16,6 +16,12 @@
           "type": "font",
           "name": "FONT_LECO_55",
           "file": "fonts/LECO_1976.otf"
+        },
+        {
+          "type": "png",
+          "menuIcon": true,
+          "name": "IMAGE_MENU_ICON",
+          "file": "images/logo.png"
         }
       ]
     },
