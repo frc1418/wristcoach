@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #define AUTONOMOUS_LENGTH 15
 #define     TELEOP_LENGTH 135
-#define      NEAR_ENDGAME 40
-#define           ENDGAME 30
+#define    ENDGAME_LENGTH 30
+
 // Options
 int s_early_warning_time,
     s_endgame_warning_time;
@@ -90,7 +90,7 @@ static void update_time() {
             text_layer_set_text(s_mode, "AUTO");
             window_set_background_color(s_main_window, GColorBlue);
             text_layer_set_text_color(s_mode, GColorBlue);
-        } else if (remaining > ENDGAME) {
+        } else if (remaining > ENDGAME_LENGTH) {
             text_layer_set_text(s_mode, "TELEOP");
             window_set_background_color(s_main_window, GColorGreen);
             text_layer_set_text_color(s_mode, GColorGreen);
@@ -100,8 +100,8 @@ static void update_time() {
             text_layer_set_text_color(s_mode, GColorRed);
         }
 
-        if (remaining == NEAR_ENDGAME) vibes_short_pulse();
-        if (remaining == ENDGAME) vibes_double_pulse();
+        if (remaining == s_early_warning_time) vibes_short_pulse();
+        if (remaining == s_endgame_warning_time) vibes_double_pulse();
         if (remaining == 0) stop_timer();
 
         // Display this time on the TextLayer
