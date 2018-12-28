@@ -166,12 +166,12 @@ static void prv_init() {
     window_stack_push(s_main_window, true);
 }
 
-static void deinit() {
-
+static void prv_deinit() {
+    if (s_window) window_destroy(s_window);
 }
 
 int main(void) {
     prv_init();
     app_event_loop();
-    deinit();
+    prv_deinit();
 }
