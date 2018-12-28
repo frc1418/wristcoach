@@ -1,13 +1,10 @@
 #include <pebble.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "main.h"
 #define   AUTONOMOUS_LENGTH 15
 #define TELEOPERATED_LENGTH 135
 #define      ENDGAME_LENGTH 30
-
-// Options
-int s_early_warning_time,
-    s_endgame_warning_time;
 
 static Window *s_main_window;
 static TextLayer *s_instructions;
@@ -16,22 +13,30 @@ static TextLayer *s_mode;
 static time_t s_start_time;
 static bool s_running;
 
+ClaySettings settings;
+
 // TODO: be more consistent about declaring functions here
 static void start_timer();
 static void stop_timer();
 
-static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
-    Tuple *early_warning_time_t = dict_find(iter, MESSAGE_KEY_EarlyWarningTime);
-    if (early_warning_time_t) s_early_warning_time = early_warning_time_t->value->int32;
-
-    Tuple *endgame_warning_time_t = dict_find(iter, MESSAGE_KEY_EndgameWarningTime);
-    if (endgame_warning_time_t) s_endgame_warning_time = endgame_warning_time_t->value->int32;
+static void prv_default_settings() {
+    settings.EndgameWarningTime = 40;
 }
 
-void prv_init(void) {
-    // Open AppMessage connection
-    app_message_register_inbox_received(prv_inbox_received_handler);
-    app_message_open(128, 128);
+static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+    Tuple *early_warning_time_t = dict_find(iter, MESSAGE_KEY_EarlyWarningTime);
+    if (early_warning_time_t) settings.EarlyWarningTime = early_warning_time_t->value->int32;
+
+    Tuple *endgame_warning_time_t = dict_find(iter, MESSAGE_KEY_EndgameWarningTime);
+    if (endgame_warning_time_t) settings.EndgameWarningTime = endgame_warning_time_t->value->int32;
+}
+
+static void prv_load_settings() {
+    prv_default_settings();
+    persist_read_data(SETTINGS_KEY, &settings, sizeof(settings));
+}
+static void prv_save_settings() {
+    persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
 static void main_window_load(Window *window) {
@@ -144,7 +149,7 @@ static void click_config_provider(void *context) {
     window_single_click_subscribe(id, select_click_handler);
 }
 
-static void init() {
+static void prv_init() {
     // Create main Window element and assign to pointer
     s_main_window = window_create();
 
@@ -166,7 +171,7 @@ static void deinit() {
 }
 
 int main(void) {
-    init();
+    prv_init();
     app_event_loop();
     deinit();
 }
