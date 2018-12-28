@@ -21,21 +21,15 @@ static void start_timer();
 static void stop_timer();
 
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
-  // Read boolean preferences
-  Tuple *endgame_warning_time_t = dict_find(iter, MESSAGE_KEY_EndgameWarningTime);
-  if (endgame_warning_time_t) s_endgame_warning_time = endgame_warning_time_t->value->int32;
+    Tuple *endgame_warning_time_t = dict_find(iter, MESSAGE_KEY_EndgameWarningTime);
+    if (endgame_warning_time_t) s_endgame_warning_time = endgame_warning_time_t->value->int32;
 }
 
 void prv_init(void) {
-  // ...
-
-  // Open AppMessage connection
-  app_message_register_inbox_received(prv_inbox_received_handler);
-  app_message_open(128, 128);
-
-  // ...
+    // Open AppMessage connection
+    app_message_register_inbox_received(prv_inbox_received_handler);
+    app_message_open(128, 128);
 }
-
 
 static void main_window_load(Window *window) {
     // Get information about the Window
