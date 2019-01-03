@@ -15,27 +15,27 @@ static bool s_running;
 
 ClaySettings settings;
 
-static void prv_default_settings() {
+static void default_settings() {
     settings.EarlyWarningTime = 40;
     settings.EndgameWarningTime = 30;
 }
 
-static void prv_load_settings() {
-    prv_default_settings();
+static void load_settings() {
+    default_settings();
     persist_read_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
-static void prv_save_settings() {
+static void save_settings() {
     persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
-static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+static void inbox_received_handler(DictionaryIterator *iter, void *context) {
     Tuple *early_warning_time_t = dict_find(iter, MESSAGE_KEY_EarlyWarningTime);
     if (early_warning_time_t) settings.EarlyWarningTime = early_warning_time_t->value->int32;
 
     Tuple *endgame_warning_time_t = dict_find(iter, MESSAGE_KEY_EndgameWarningTime);
     if (endgame_warning_time_t) settings.EndgameWarningTime = endgame_warning_time_t->value->int32;
 
-    prv_save_settings();
+    save_settings();
 }
 
 static void window_load(Window *window) {
@@ -141,10 +141,10 @@ static void click_config_provider(void *context) {
     window_single_click_subscribe(id, select_click_handler);
 }
 
-static void prv_init() {
-    prv_load_settings();
+static void init() {
+    load_settings();
 
-    app_message_register_inbox_received(prv_inbox_received_handler);
+    app_message_register_inbox_received(inbox_received_handler);
     app_message_open(128, 128);
 
     // Create main Window element and assign to pointer
@@ -163,12 +163,12 @@ static void prv_init() {
     window_stack_push(s_window, true);
 }
 
-static void prv_deinit() {
+static void deinit() {
     if (s_window) window_destroy(s_window);
 }
 
 int main(void) {
-    prv_init();
+    init();
     app_event_loop();
-    prv_deinit();
+    deinit();
 }
