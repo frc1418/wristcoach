@@ -1,5 +1,4 @@
 #include <pebble.h>
-#include <stdio.h>
 #include <stdbool.h>
 #include "main.h"
 #define   AUTONOMOUS_LENGTH 15
